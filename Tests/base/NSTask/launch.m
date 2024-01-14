@@ -79,6 +79,13 @@ int main()
   [task release];
 
   task = [[NSTask alloc] init];
+  [task setLaunchPath: @"invalidLaunchPath"];
+  [task setArguments: [NSArray arrayWithObjects: nil]];
+  PASS_EXCEPTION([task launch];, @"NSInvalidArgumentException",
+    "raised exception on invalid launch path") 
+  [task release];
+
+  task = [[NSTask alloc] init];
   [task setLaunchPath: [helpers stringByAppendingPathComponent: testcat]];
   [task setArguments: [NSArray arrayWithObjects: nil]];
   [task setCurrentDirectoryPath: @"not-a-directory"]; 
